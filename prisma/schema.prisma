@@ -1,0 +1,82 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  // We set an `id` variable
+  // - @id (because it's an ID)
+  // - @default(autoincrement()) (default value is auto-incremented)
+  id String @id @default(uuid())
+
+  // - @unique (because we want the user to be unique
+  // based on the email - two users can't have the same)
+  email String @unique
+
+  username String
+
+  // With a `BookMark[]` type (one-to-many relationship)
+  // Because each user can have between 0 and an infinite number of bookmarks
+  // bookmarks BookMark[]
+  // Position Position[]
+}
+
+model Position {
+  id           String   @id @default(uuid())
+  // userId    String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  name         String
+  location     String?
+  compensation String?
+  benefits     String?
+  details      String
+  // user      User     @relation(fields: [userId], references: [id])
+  Offers       Offer[]
+}
+
+model Offer {
+  id             String   @id @default(uuid())
+  positionId     String
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  details        String
+  candidateName  String
+  candidateEmail String   @unique
+  position       Position @relation(fields: [positionId], references: [id])
+}
+
+// model Candidate {
+//   id         String   @id @default(uuid())
+//   positionId String
+//   createdAt  DateTime @default(now())
+//   updatedAt  DateTime @updatedAt
+//   name       String
+//   details    String
+//   position   Position @relation(fields: [positionId], references: [id])
+// }
+
+// model BookMark {
+//   id        String   @id @default(uuid())
+//   createdAt DateTime @default(now())
+//   // note about the bookmark
+//   text      String
+//   url       String   @default("")
+//   // It will link the `id` of the `User` model
+//   userId    Int
+//   // We set a `user` variable
+//   // With a `User` type (many-to-one relationship)
+//   // Because each bookmark is associated with a user
+//   //
+//   // We link the `User` to a `Bookmark` based on:
+//   // - the `userId` in the `Bookmark` model
+//   // - the `id` in the `User` model
+//   user      User     @relation(fields: [userId], references: [id])
+// }
