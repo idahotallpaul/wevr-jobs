@@ -51,6 +51,28 @@ Prisma is really intuitive too. Create your schemas and when you pull the data i
 
 Here's what I built.
 
+View and add jobs. Jobs with offers show the offer count.
+
+<img width="1232" alt="Screen Shot 2022-07-17 at 2 43 17 AM" src="https://user-images.githubusercontent.com/296811/179392866-cc0848d7-e7e3-43ee-ab17-36c19197ddfa.png">
+
+Select a job to view details. Offers are listed on the side. click the card to view the offer details. Otherwise you can edit the job or add a new offer.
+
+<img width="1232" alt="Screen Shot 2022-07-17 at 2 43 39 AM" src="https://user-images.githubusercontent.com/296811/179392904-f3c1e81e-7543-48d8-bb9a-1aa9cd1f71be.png">
+
+View the offer on it's own URL
+
+<img width="1232" alt="Screen Shot 2022-07-17 at 2 44 20 AM" src="https://user-images.githubusercontent.com/296811/179392933-ee415615-855f-48fb-b985-82c1c714f38f.png">
+
+Create/edit a job and preview the changes.
+
+<img width="1232" alt="Screen Shot 2022-07-17 at 2 44 53 AM" src="https://user-images.githubusercontent.com/296811/179392955-04433000-7328-4ab4-a404-43f0db767158.png">
+<img width="1232" alt="Screen Shot 2022-07-17 at 2 44 49 AM" src="https://user-images.githubusercontent.com/296811/179392961-837864f3-0a74-4301-ac5c-5bdecdb6e647.png">
+
+Create an offer.
+
+<img width="1232" alt="Screen Shot 2022-07-17 at 2 45 20 AM" src="https://user-images.githubusercontent.com/296811/179392981-bd82a81a-b502-438b-9a62-2b8e246d3701.png">
+
+
 ## Running Things
 
 Install dependencies and start Remix/Express by running:
