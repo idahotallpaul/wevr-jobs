@@ -19,17 +19,23 @@ type AddEditPositionProps = {
   position?: Position | any;
 };
 
+// common form for adding/editing positions
 export const AddEditPosition = (props: AddEditPositionProps) => {
   const { position } = props;
 
   const { state } = useTransition();
   const busy = state === "submitting";
 
+  // if we don't have an id, we're creating a new position, not editing an old one
+  const newPosition = !position?.id;
+
+  // common object to store local form data so we can render a preview of the markdown
   const [positionData, setPositionData] = useState({
     name: position?.name || "New Position Name",
     details: position?.details || jobDefaults,
   });
 
+  // common handler for all inputs
   const handleInputChange = (
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -41,6 +47,21 @@ export const AddEditPosition = (props: AddEditPositionProps) => {
     }));
   };
 
+  // convert markdown content to html to be rendered
+  const detailsMarkdownToHtml = position?.details
+    ? marked(position.details)
+    : "";
+
+  // button text needs to change based on both new vs edit and busy vs not busy
+  let buttonText;
+  if (newPosition) {
+    buttonText = busy ? "Creatating..." : "Create Position";
+  } else {
+    buttonText = busy ? "Updating..." : "Update Position";
+  }
+
+  const headingText = newPosition ? "Add Position" : "Edit Position";
+
   return (
     <Form method="post">
       <input
@@ -50,18 +71,21 @@ export const AddEditPosition = (props: AddEditPositionProps) => {
         defaultValue={position?.id || undefined}
       />
       <Tab.Container defaultActiveKey="markdown" id="job-details">
-        <Nav variant="tabs" className="justify-content-end mb-3">
-          <Nav.Item>
-            <Nav.Link eventKey="markdown" title="Markdown">
-              Markdown
-            </Nav.Link>
-          </Nav.Item>
-          <Nav.Item>
-            <Nav.Link eventKey="preview" title="preview">
-              Preview
-            </Nav.Link>
-          </Nav.Item>
-        </Nav>
+        <div className="d-flex justify-content-between align-items-center mb-3">
+          <h1>{headingText}</h1>
+          <Nav variant="tabs" className="">
+            <Nav.Item>
+              <Nav.Link eventKey="markdown" title="Markdown">
+                Markdown
+              </Nav.Link>
+            </Nav.Item>
+            <Nav.Item>
+              <Nav.Link eventKey="preview" title="preview">
+                Preview
+              </Nav.Link>
+            </Nav.Item>
+          </Nav>
+        </div>
 
         <Tab.Content>
           <Tab.Pane eventKey="markdown">
@@ -92,13 +116,13 @@ export const AddEditPosition = (props: AddEditPositionProps) => {
           <Tab.Pane eventKey="preview">
             <h1>{positionData.name}</h1>
             <div
-              dangerouslySetInnerHTML={{ __html: marked(positionData.details) }}
+              dangerouslySetInnerHTML={{ __html: detailsMarkdownToHtml }}
             ></div>
           </Tab.Pane>
         </Tab.Content>
       </Tab.Container>
       <Button variant="primary" type="submit" disabled={busy}>
-        {busy ? "Updating..." : "Update Position"}
+        {buttonText}
       </Button>
     </Form>
   );

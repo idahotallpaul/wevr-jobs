@@ -16,7 +16,7 @@ export async function loader() {
   return { allPositions };
 }
 
-export default function Index() {
+export default function OffersIndex() {
   const data = useLoaderData();
   const { allPositions } = data;
 
@@ -55,6 +55,7 @@ export default function Index() {
               <h4>There are no current offers.</h4>
             )}
           </Row>
+          <hr />
         </div>
       );
     }

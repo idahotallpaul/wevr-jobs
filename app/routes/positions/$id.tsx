@@ -24,10 +24,12 @@ export async function loader({ params }: any) {
   return { position };
 }
 
+// display position info, along with cards for the offers on the position
 export default function PositionRoute() {
   const { position } = useLoaderData<LoaderData>();
   const { offers } = position;
 
+  // create clickable cards for all offers
   const offerCards = offers.map((offer, offerId) => (
     <Card key={offerId} className="mb-3">
       <Card.Body
@@ -49,10 +51,11 @@ export default function PositionRoute() {
     </Card>
   ));
 
+  // convert markdown content to html to be rendered
   const detailsMarkdownToHtml = marked(position.details);
 
   return (
-    <div>
+    <>
       <div className="d-flex justify-content-end mb-3">
         <Link to="./edit" className="me-2">
           <Button variant="primary">Edit Position</Button>
@@ -78,6 +81,6 @@ export default function PositionRoute() {
           )}
         </Col>
       </Row>
-    </div>
+    </>
   );
 }

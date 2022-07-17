@@ -1,5 +1,4 @@
 import { NavLink } from "@remix-run/react";
-import React from "react";
 import { Container, Nav, Navbar } from "react-bootstrap";
 
 export const DemoNavbar = () => {
@@ -21,9 +20,6 @@ export const DemoNavbar = () => {
             <Nav.Link as={NavLink} to="/" className="nav-link">
               Positions
             </Nav.Link>
-            {/* <Nav.Link as={NavLink} to="/positions">
-              Positions
-            </Nav.Link> */}
             <Nav.Link as={NavLink} to="/offers">
               Offers
             </Nav.Link>

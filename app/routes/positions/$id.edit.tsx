@@ -37,7 +37,7 @@ export async function action({ request }: any) {
   return redirect(`/positions/${newPosition.id}`);
 }
 
-export default function NewPositionRoute() {
+export default function EditPositionRoute() {
   const { position } = useLoaderData<LoaderData>();
 
   return <AddEditPosition position={position} />;

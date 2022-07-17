@@ -40,12 +40,14 @@ export async function action({ request }: any) {
   return redirect(`/offers/${newOffer.id}`);
 }
 
+// create a new offer associated with a specific position
 export default function NewPositionOfferRoute() {
   const { position } = useLoaderData<LoaderData>();
 
   const { state } = useTransition();
   const busy = state === "submitting";
 
+  // convert markdown content to html to be rendered
   const detailsMarkdownToHtml = marked(position.details);
 
   return (

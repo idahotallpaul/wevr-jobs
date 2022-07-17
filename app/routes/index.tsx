@@ -20,6 +20,7 @@ export default function Index() {
   const data = useLoaderData();
   const { allPositions } = data;
 
+  // create clickable cards for all positions with the title and offers count
   const positionCards = allPositions.map(
     (position: PositionWithOffers, positionId: Key) => (
       <Col key={positionId} className="col-4 mb-3">
