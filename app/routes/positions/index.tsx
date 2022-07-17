@@ -1,8 +1,6 @@
-export default function PositionsIndexRoute() {
-  return (
-    <div>
-      <p>Here's a random joke:</p>
-      <p>I was wondering why the frisbee was getting bigger, then it hit me.</p>
-    </div>
-  );
+import { redirect } from "@remix-run/node";
+
+// nothing to see here... redirect to the root
+export async function loader({ params }: any) {
+  return redirect(`/`);
 }

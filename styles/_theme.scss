@@ -4,8 +4,8 @@
 // Variables
 
 $body-bg-image: linear-gradient(
-  200deg,
-  shade-color($cyan, 10%),
+  -45deg,
+  shade-color($cyan, 20%),
   shade-color($purple, 10%),
   shade-color($pink, 20%)
 ) !default;
@@ -40,6 +40,7 @@ $frosted-opacity: 0.3 !default;
 
 body {
   background-image: $body-bg-image;
+  min-height: 100vh;
 }
 
 // Tables
@@ -241,6 +242,12 @@ body {
     }
   }
 
+  transition: all 0.1s ease-in;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+
   &.bg-light {
     .card-header,
     .card-body {
@@ -267,6 +274,10 @@ body {
 
   &-header {
     font-weight: $headings-font-weight;
+  }
+
+  a {
+    text-decoration: none;
   }
 }
 

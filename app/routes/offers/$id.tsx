@@ -1,12 +1,7 @@
-import type { LoaderFunction } from "@remix-run/node";
-import { json } from "@remix-run/node";
-import { Link, useLoaderData, useParams } from "@remix-run/react";
-import type { Offer } from "@prisma/client";
-
-// import { db } from "~/utils/db.server";
 import { PrismaClient } from "@prisma/client";
-
-type LoaderData = { offer: Offer };
+import { useLoaderData } from "@remix-run/react";
+import { marked } from "marked";
+import { Col, Row } from "react-bootstrap";
 
 export async function loader({ params }: any) {
   const prisma = new PrismaClient();
@@ -18,8 +13,6 @@ export async function loader({ params }: any) {
     },
   });
 
-  console.log({ offer });
-
   // get the position
   const position = await prisma.position.findUnique({
     where: {
@@ -27,54 +20,59 @@ export async function loader({ params }: any) {
     },
   });
 
-  console.log({ position });
-
-  //   // get the bookmarks
-  //   const offersBookmarks = await prisma.bookMark.findMany({
-  //     where: {
-  //       offerId: parseInt(params?.id),
-  //     },
-  //     // include : {
-  //     //     offer : true
-  //     // }
-  //   });
-  //   console.log(
-  //     "offersBookmarks with id = " + params?.id + " ",
-  //     offersBookmarks
-  //   );
   await prisma.$disconnect();
   return { offer, position };
-  // return [allPositions, allOffers];
 }
 
-// export const loader: LoaderFunction = async ({ params }) => {
-//   const offer = await db.offer.findUnique({
-//     where: { id: params.offerId },
-//   });
-//   if (!offer) throw new Error("Offer not found");
-//   const data: LoaderData = { offer };
-//   return json(data);
-// };
-
 export default function OfferRoute() {
-  const params = useParams();
   const data = useLoaderData();
-  console.log({ data });
-
   const { offer, position } = data;
-  // console.log({ data });
-  // const { offer } = data;
-  console.log({ offer, position });
+  const detailsMarkdownToHtml = marked(position.details);
 
   return (
-    <div>
-      <p>Here's your hilarious offer:</p>
-      <p>{position.name}</p>
-      <p>{offer.candidateName}</p>
-      <p>{offer.candidateEmail}</p>
-      <p>{offer.details}</p>
-      <p>{position.details}</p>
-      <Link to="./edit">{offer.candidateName} Permalink</Link>
-    </div>
+    <Row>
+      <Col lg={8}>
+        <h1>Hello there!</h1>
+
+        <h2>We've got good news! Wevr would like to make you an offer!</h2>
+
+        <h5>
+          (Just to make sure we're clear, this offer is intended for{" "}
+          <strong className="text-info">{offer.candidateName}</strong>, who is
+          reachable at the following email address:{" "}
+          <strong>
+            <a href={`mailto:${offer.candidateEmail}`}>
+              {offer.candidateEmail}
+            </a>
+          </strong>
+          .)
+        </h5>
+
+        <hr />
+
+        <h2>The position we're offering you a job for, as you recall, is:</h2>
+        <h2 className="fs-1 text-info fw-bolder">{position.name}</h2>
+
+        <hr />
+
+        <h2>
+          For this role, we're prepared to offer you the following compensation:{" "}
+        </h2>
+        <h2 className="fs-1 text-info fw-bolder">{offer.details}</h2>
+
+        <hr />
+
+        <h5>
+          Pretty sweet, huh? In case you've forgotten what the role is all
+          about, the details are right here. Let us know within the next couple
+          days! Excited to welcome you aboard!
+        </h5>
+
+        <hr />
+
+        <h1>{position.name}</h1>
+        <div dangerouslySetInnerHTML={{ __html: detailsMarkdownToHtml }}></div>
+      </Col>
+    </Row>
   );
 }

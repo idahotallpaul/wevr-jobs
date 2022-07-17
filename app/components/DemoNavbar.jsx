@@ -11,7 +11,7 @@ export const DemoNavbar = () => {
       bg="dark"
       variant="dark"
     >
-      <Container fluid>
+      <Container>
         <Navbar.Brand as={NavLink} to="/">
           Wevr <span className="text-muted">Jobs</span>
         </Navbar.Brand>
