@@ -41,7 +41,7 @@ For the Offers, we have `details`, `candidateEmail` and `candidateName`.
 
 This gives the most flexibility and lets us break it down further later on. Wanna keep the description light, cool. Want to dive into pet insurance and gym memberships, that works too! just throw it all in the Position's `details` field.
 
-To give the ability to format the descriptions, I decided to input the content in a `<textarea/>` and store it as `Markdown`. As a result, I gump'd together a quick markdown editor and viewer. 
+To give the ability to format the descriptions, I decided to input the content in a `<textarea/>` and store it as `Markdown`. As a result, I gump'd together a quick markdown editor and viewer.
 
 ## Result
 
@@ -72,19 +72,21 @@ Create an offer.
 
 <img width="1232" alt="Screen Shot 2022-07-17 at 2 45 20 AM" src="https://user-images.githubusercontent.com/296811/179392981-bd82a81a-b502-438b-9a62-2b8e246d3701.png">
 
-
 ## Running Things
 
-Install dependencies and start Remix/Express by running:
+Rename `sample.env` to `.env`
+
+Install dependencies, set up database and start Remix/Express by running:
 
 ```sh
 npm i
+npx prisma db pull
+npx prisma generate
 npm run dev
 ```
 
-If you wanna take a look at the data, run:
+If you wanna take a look at the data, open another terminal and run:
 
 ```sh
 npx prisma studio
 ```
-
