@@ -48,8 +48,8 @@ export const AddEditPosition = (props: AddEditPositionProps) => {
   };
 
   // convert markdown content to html to be rendered
-  const detailsMarkdownToHtml = position?.details
-    ? marked(position.details)
+  const detailsMarkdownToHtml = positionData?.details
+    ? marked(positionData.details)
     : "";
 
   // button text needs to change based on both new vs edit and busy vs not busy
