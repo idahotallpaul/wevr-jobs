@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -21,9 +18,6 @@ model Position {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   name      String
-  // location     String?
-  // compensation String?
-  // benefits     String?
   details   String
   offers    Offer[]
 }
@@ -38,15 +32,3 @@ model Offer {
   candidateEmail String   @unique
   position       Position @relation(fields: [positionId], references: [id])
 }
-
-// TODO: ADD CANDIDATE STORAGE
-
-// model Candidate {
-//   id         String   @id @default(uuid())
-//   positionId String
-//   createdAt  DateTime @default(now())
-//   updatedAt  DateTime @updatedAt
-//   name       String
-//   details    String
-//   position   Position @relation(fields: [positionId], references: [id])
-// }
